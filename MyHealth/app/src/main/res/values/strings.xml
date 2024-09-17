@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyHealth</string>
+
+    <string name="members">Membros grupo</string>
 </resources>

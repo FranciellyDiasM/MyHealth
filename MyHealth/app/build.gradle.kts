@@ -33,6 +33,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
+    flavorDimensions.add("disciplina")
+
+    productFlavors {
+        create("pi") {
+            dimension = "disciplina"
+        }
+        create("bd") {
+            dimension = "disciplina"
+        }
+    }
 }
 
 dependencies {
