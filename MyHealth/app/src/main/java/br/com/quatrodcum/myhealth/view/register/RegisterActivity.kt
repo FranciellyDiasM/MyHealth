@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import br.com.quatrodcum.myhealth.controller.RegisterController
 import br.com.quatrodcum.myhealth.databinding.ActivityRegisterBinding
+import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.User
+import br.com.quatrodcum.myhealth.util.ThreadUtil
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private val registerController = RegisterController(this)
+    private var objectives: List<Objective> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+
+        ThreadUtil.exec(
+            doInBackground = registerController::getAllObjectives,
+            postExecuteTask = ::loadObjectives
+        )
+
         val items = arrayOf("1", "2")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
@@ -32,11 +43,23 @@ class RegisterActivity : AppCompatActivity() {
         binding.cbxObjective.adapter = adapter
     }
 
+    private fun loadObjectives(objectives: List<Objective>) {
+        this.objectives = objectives
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            objectives.map { it.description })
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.cbxObjective.adapter = adapter
+    }
+
     private fun setupListeners() {
         binding.btnRegister.setOnClickListener {
             val name = binding.edtName.text.toString()
             val email = binding.edtEmail.text.toString()
-            val objective = binding.cbxObjective.selectedItem.toString().toInt()
+            val indexObjective = binding.cbxObjective.selectedItemPosition
+            val objective =  objectives[indexObjective]
 
             val user = User(
                 id = null,
