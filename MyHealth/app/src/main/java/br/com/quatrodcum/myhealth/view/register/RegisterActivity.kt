@@ -3,14 +3,13 @@ package br.com.quatrodcum.myhealth.view.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.controller.RegisterController
 import br.com.quatrodcum.myhealth.databinding.ActivityRegisterBinding
 import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
+import br.com.quatrodcum.myhealth.util.toast
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -34,23 +33,12 @@ class RegisterActivity : AppCompatActivity() {
             doInBackground = registerController::getAllObjectives,
             postExecuteTask = ::loadObjectives
         )
-
-        val items = arrayOf("1", "2")
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        binding.cbxObjective.adapter = adapter
     }
 
     private fun loadObjectives(objectives: List<Objective>) {
         this.objectives = objectives
+        val adapter = ObjectiveAdapter(this, objectives)
 
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            objectives.map { it.description })
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.cbxObjective.adapter = adapter
     }
 
@@ -60,15 +48,17 @@ class RegisterActivity : AppCompatActivity() {
             val email = binding.edtEmail.text.toString()
             val indexObjective = binding.cbxObjective.selectedItemPosition
             val objective =  objectives[indexObjective]
+            val imc = binding.edtImc.text.toString().toDoubleOrNull() ?: 0.0
 
             val user = User(
                 id = null,
                 name = name,
                 email = email,
-                objective = objective
+                objective = objective,
+                imc = imc
             )
 
-            Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+            toast(user.toString())
         }
     }
 
