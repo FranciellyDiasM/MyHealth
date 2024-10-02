@@ -46,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
             val name = binding.edtName.text.toString()
             val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
             val indexObjective = binding.cbxObjective.selectedItemPosition
             val objective =  objectives[indexObjective]
             val imc = binding.edtImc.text.toString().toDoubleOrNull() ?: 0.0
@@ -55,10 +56,15 @@ class RegisterActivity : AppCompatActivity() {
                 name = name,
                 email = email,
                 objective = objective,
+                password = password,
                 imc = imc
             )
 
-            toast(user.toString())
+            ThreadUtil.exec(
+                doInBackground = {
+                    registerController.insertUser(user)
+                }
+            )
         }
     }
 

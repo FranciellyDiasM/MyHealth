@@ -13,7 +13,7 @@ class ThreadUtil {
         fun <T> exec(
             onPreExecute: () -> Unit = {},
             doInBackground: () -> T,
-            postExecuteTask: (T) -> Unit
+            postExecuteTask: (T) -> Unit = {}
         ) {
             object : AsyncTask<Void, Void, T>() {
                 override fun doInBackground(vararg params: Void?): T {

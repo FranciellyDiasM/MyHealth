@@ -5,5 +5,6 @@ data class User(
     val name: String,
     val email: String,
     val imc: Double,
+    val password: String,
     val objective: Objective
 )
