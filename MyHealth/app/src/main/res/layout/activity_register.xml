@@ -112,10 +112,9 @@
         android:id="@+id/btnImc"
         style="@style/PrimaryButton"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="56dp"
         android:layout_marginEnd="16dp"
         android:text="Calcular"
-        app:layout_constraintBottom_toBottomOf="@id/lblImc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lblImc"
         app:layout_constraintTop_toTopOf="@id/lblImc" />
