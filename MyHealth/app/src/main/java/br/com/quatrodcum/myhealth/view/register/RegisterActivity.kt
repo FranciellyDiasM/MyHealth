@@ -25,6 +25,7 @@ class RegisterActivity : AppCompatActivity() {
 
         setupView()
         setupListeners()
+        setupToolbar()
     }
 
     private fun setupView() {
@@ -66,6 +67,10 @@ class RegisterActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
     }
 
     companion object {
