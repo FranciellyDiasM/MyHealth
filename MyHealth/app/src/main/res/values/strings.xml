@@ -2,4 +2,8 @@
     <string name="app_name">MyHealth</string>
 
     <string name="members">Membros grupo</string>
+
+    <string name="title_register">Cadastro</string>
+
+    <string name="title_menu">Menu</string>
 </resources>
