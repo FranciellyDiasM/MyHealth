@@ -6,4 +6,6 @@
     <string name="title_register">Cadastro</string>
 
     <string name="title_menu">Menu</string>
+
+    <string name="title_config">Configurações</string>
 </resources>
