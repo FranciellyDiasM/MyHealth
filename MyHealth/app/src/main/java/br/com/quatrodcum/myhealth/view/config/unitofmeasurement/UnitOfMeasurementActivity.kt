@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.controller.ConfigController
 import br.com.quatrodcum.myhealth.databinding.ActivityUnitOfMeasurementBinding
+import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 import br.com.quatrodcum.myhealth.util.ThreadUtil
+import br.com.quatrodcum.myhealth.util.showInputDialog
 
 class UnitOfMeasurementActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupToolbar()
         setupViews()
+        setupListeners()
         loadData()
     }
 
@@ -30,6 +33,32 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
 
     private fun setupViews() {
         binding.recUnitOfMeasurement.adapter = adapter
+    }
+
+
+    private fun setupListeners() {
+        binding.btnAdd.setOnClickListener {
+            showInputDialog(
+                title = "Nova unidade de medida",
+                message = "Insira o nome da nova unidade de medida",
+                actionButton = { userInput ->
+                    insertUnitOfMeasurement(userInput)
+                }
+            )
+        }
+    }
+
+    private fun insertUnitOfMeasurement(name: String) {
+        ThreadUtil.exec(
+            doInBackground = {
+                val unitOfMeasurement = UnitOfMeasurement(id = null, name = name)
+                configController.insertUnitOfMeasurement(unitOfMeasurement)
+            },
+            postExecuteTask = {
+                loadData()
+            }
+        )
+
     }
 
     private fun loadData() {

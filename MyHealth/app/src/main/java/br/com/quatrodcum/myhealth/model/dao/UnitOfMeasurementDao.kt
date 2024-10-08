@@ -29,4 +29,16 @@ class UnitOfMeasurementDao(context: Context) {
         cursor.close()
         return unitOfMeasurements
     }
+
+    fun insert(unitOfMeasurement: UnitOfMeasurement) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        db.execSQL(
+            """
+            INSERT INTO ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} 
+            (${DB.UNIT_OF_MEASUREMENT.COLUMN_NAME})
+            VALUES (?);
+            """,
+            arrayOf(unitOfMeasurement.name)
+        )
+    }
 }

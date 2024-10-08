@@ -11,4 +11,8 @@ class ConfigController(context: Context) {
     fun getUnitOfMeasurements() : List<UnitOfMeasurement>{
         return unitOfMeasurementDao.getAll()
     }
+
+    fun insertUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
+        unitOfMeasurementDao.insert(unitOfMeasurement)
+    }
 }
