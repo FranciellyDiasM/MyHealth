@@ -13,17 +13,35 @@
         android:theme="@style/Theme.MyHealth"
         tools:targetApi="31">
         <activity
+            android:name=".view.config.unitofmeasurement.UnitOfMeasurementActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".view.config.ConfigActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
+        <activity
             android:name=".view.menu.MenuActivity"
-            android:exported="false" />
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".view.register.RegisterActivity"
-            android:exported="false" />
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:exported="false" />
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".view.splashscreen.SplashScreenActivity"
-            android:exported="true">
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="userPortrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 

@@ -14,13 +14,16 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(DB.OBJECTIVE.CREATE_TABLE)
         db.execSQL(DB.USER.CREATE_TABLE)
+        db.execSQL(DB.UNIT_OF_MEASUREMENT.CREATE_TABLE)
 
         db.execSQL(DB.OBJECTIVE.INIT)
+        db.execSQL(DB.UNIT_OF_MEASUREMENT.INIT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS ${DB.OBJECTIVE.TABLE_NAME}")
         db.execSQL("DROP TABLE IF EXISTS ${DB.USER.TABLE_NAME}")
+        db.execSQL("DROP TABLE IF EXISTS ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME}")
 
         onCreate(db)
     }

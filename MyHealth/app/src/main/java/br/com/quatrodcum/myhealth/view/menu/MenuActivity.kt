@@ -11,6 +11,7 @@ import br.com.quatrodcum.myhealth.controller.MenuController
 import br.com.quatrodcum.myhealth.databinding.ActivityMenuBinding
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.toast
+import br.com.quatrodcum.myhealth.view.config.ConfigActivity
 import br.com.quatrodcum.myhealth.view.login.LoginActivity
 
 class MenuActivity : AppCompatActivity() {
@@ -34,7 +35,7 @@ class MenuActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                toast("Funcao nao implementada")
+                ConfigActivity.startActivity(this)
                 true
             }
 

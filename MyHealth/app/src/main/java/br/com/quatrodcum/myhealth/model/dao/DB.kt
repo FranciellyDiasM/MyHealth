@@ -43,4 +43,24 @@ object DB {
             );
         """.trimIndent()
     }
+
+    object UNIT_OF_MEASUREMENT {
+        const val TABLE_NAME = "unidade_medida"
+
+        const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "nome"
+
+        val CREATE_TABLE = """
+            CREATE TABLE $TABLE_NAME (
+                $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_NAME TEXT NOT NULL
+            );
+        """.trimIndent()
+
+        val INIT = """
+            INSERT INTO $TABLE_NAME ($COLUMN_NAME)
+            VALUES ('grama'), ('pitada'), ('colher'), ('mililitro'), ('kilograma'), ('unidade');
+        """.trimIndent()
+
+    }
 }
