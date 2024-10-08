@@ -41,4 +41,16 @@ class UnitOfMeasurementDao(context: Context) {
             arrayOf(unitOfMeasurement.name)
         )
     }
+
+    fun update(unitOfMeasurement: UnitOfMeasurement) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        db.execSQL(
+            """
+                    UPDATE ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} 
+                    SET ${DB.UNIT_OF_MEASUREMENT.COLUMN_NAME} = ?
+                    WHERE ${DB.UNIT_OF_MEASUREMENT.COLUMN_ID} = ?;
+                """,
+            arrayOf(unitOfMeasurement.name, unitOfMeasurement.id)
+        )
+    }
 }

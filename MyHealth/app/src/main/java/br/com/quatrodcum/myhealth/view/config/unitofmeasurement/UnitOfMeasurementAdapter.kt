@@ -13,6 +13,8 @@ class UnitOfMeasurementAdapter :
         UnitOfMeasurementDiffCallback()
     ) {
 
+    private var _onItemClickListener: (UnitOfMeasurement) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitOfMeasurementViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -26,14 +28,34 @@ class UnitOfMeasurementAdapter :
         holder.bind(unitOfMeasurementView)
     }
 
+    fun setOnItemClickListener(action: (UnitOfMeasurement) -> Unit) {
+        _onItemClickListener = action
+    }
+
 
     inner class UnitOfMeasurementViewHolder(
         private val binding: ItemUnitOfMeasurementBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.root.setOnClickListener {
+                val clickedItem = currentList[adapterPosition]
+                _onItemClickListener.invoke(clickedItem)
+            }
+        }
+
         fun bind(unitOfMeasurement: UnitOfMeasurement) {
             binding.txtName.text = unitOfMeasurement.name
         }
+    }
+
+    fun submitItem(item: UnitOfMeasurement) {
+        val tempList = this.currentList.toMutableList()
+        val index = tempList.indexOfFirst { it.id == item.id }
+
+        tempList[index] = item
+
+        this.submitList(tempList)
     }
 
     class UnitOfMeasurementDiffCallback : DiffUtil.ItemCallback<UnitOfMeasurement>() {

@@ -15,4 +15,8 @@ class ConfigController(context: Context) {
     fun insertUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
         unitOfMeasurementDao.insert(unitOfMeasurement)
     }
+
+    fun update(unitOfMeasurement: UnitOfMeasurement) {
+        unitOfMeasurementDao.update(unitOfMeasurement)
+    }
 }

@@ -9,6 +9,7 @@ import br.com.quatrodcum.myhealth.databinding.ActivityUnitOfMeasurementBinding
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.showInputDialog
+import br.com.quatrodcum.myhealth.view.config.UpdateOrDeleteDialogFragment
 
 class UnitOfMeasurementActivity : AppCompatActivity() {
 
@@ -46,6 +47,41 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
                 }
             )
         }
+
+        adapter.setOnItemClickListener { item ->
+            val dialog = UpdateOrDeleteDialogFragment.newInstance(
+                title = item.name,
+                message = "O que deseja fazer com a unidade de medida: ${item.name}?"
+            )
+
+            dialog.setOnUpdateClickListener {
+                showUpdateItemDialog(item)
+            }
+
+            dialog.show(supportFragmentManager, this::class.java.simpleName)
+        }
+    }
+
+    private fun showUpdateItemDialog(unitOfMeasurement: UnitOfMeasurement) {
+        showInputDialog(
+            title = "Alterar",
+            message = "Alterar ${unitOfMeasurement.name} para:",
+            actionButton = { userInput ->
+                val newUnitOfMeasurement = unitOfMeasurement.copy(name = userInput)
+                updateUnitOfMeasurement(newUnitOfMeasurement)
+            }
+        )
+    }
+
+    private fun updateUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
+        ThreadUtil.exec(
+            doInBackground = {
+                configController.update(unitOfMeasurement)
+            },
+            postExecuteTask = {
+                adapter.submitItem(unitOfMeasurement)
+            }
+        )
     }
 
     private fun insertUnitOfMeasurement(name: String) {

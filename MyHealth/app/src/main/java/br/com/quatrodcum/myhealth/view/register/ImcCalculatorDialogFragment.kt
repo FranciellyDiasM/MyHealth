@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.quatrodcum.myhealth.databinding.FragmentImcCalculatorDialogBinding
+import br.com.quatrodcum.myhealth.databinding.DialogImcCalculatorBinding
 import br.com.quatrodcum.myhealth.view.FullDialogFragment
 
 class ImcCalculatorDialogFragment private constructor() : FullDialogFragment() {
 
-    private lateinit var binding: FragmentImcCalculatorDialogBinding
+    private lateinit var binding: DialogImcCalculatorBinding
     private var _onConfirmListener: (Form) -> Unit = {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentImcCalculatorDialogBinding.inflate(inflater, container, false)
+        binding = DialogImcCalculatorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
