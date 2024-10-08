@@ -53,7 +53,20 @@ class UnitOfMeasurementAdapter :
         val tempList = this.currentList.toMutableList()
         val index = tempList.indexOfFirst { it.id == item.id }
 
-        tempList[index] = item
+        if(index > 0) {
+            tempList[index] = item
+        }
+
+        this.submitList(tempList)
+    }
+
+    fun remove(item: UnitOfMeasurement) {
+        val tempList = this.currentList.toMutableList()
+        val index = tempList.indexOfFirst { it.id == item.id }
+
+        if(index > 0) {
+            tempList.removeAt(index)
+        }
 
         this.submitList(tempList)
     }

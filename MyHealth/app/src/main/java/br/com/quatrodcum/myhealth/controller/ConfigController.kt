@@ -19,4 +19,8 @@ class ConfigController(context: Context) {
     fun update(unitOfMeasurement: UnitOfMeasurement) {
         unitOfMeasurementDao.update(unitOfMeasurement)
     }
+
+    fun delete(unitOfMeasurement: UnitOfMeasurement) {
+        unitOfMeasurementDao.delete(unitOfMeasurement)
+    }
 }

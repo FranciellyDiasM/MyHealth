@@ -7,7 +7,6 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatTextView
 
 fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
@@ -69,6 +68,28 @@ fun Context.showInputDialog(
             dialog.dismiss()
         }
         .setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.cancel()
+        }
+        .create()
+
+    dialog.show()
+}
+
+fun Context.showYesNoDialog(
+    title: String,
+    message: String,
+    positiveButtonText: String,
+    negativeButtonText: String,
+    actionButton: () -> Unit
+) {
+    val dialog = AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(positiveButtonText) { dialog, _ ->
+            actionButton()
+            dialog.dismiss()
+        }
+        .setNegativeButton(negativeButtonText) { dialog, _ ->
             dialog.cancel()
         }
         .create()

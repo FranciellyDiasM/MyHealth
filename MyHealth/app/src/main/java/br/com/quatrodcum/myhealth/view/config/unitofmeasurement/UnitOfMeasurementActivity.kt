@@ -9,6 +9,7 @@ import br.com.quatrodcum.myhealth.databinding.ActivityUnitOfMeasurementBinding
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.showInputDialog
+import br.com.quatrodcum.myhealth.util.showYesNoDialog
 import br.com.quatrodcum.myhealth.view.config.UpdateOrDeleteDialogFragment
 
 class UnitOfMeasurementActivity : AppCompatActivity() {
@@ -58,6 +59,10 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
                 showUpdateItemDialog(item)
             }
 
+            dialog.setOnDeleteClickListener {
+                showDeleteItemDialog(item)
+            }
+
             dialog.show(supportFragmentManager, this::class.java.simpleName)
         }
     }
@@ -73,6 +78,18 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
         )
     }
 
+    private fun showDeleteItemDialog(unitOfMeasurement: UnitOfMeasurement) {
+        showYesNoDialog(
+            title = "Remover",
+            message = "Esta ação vai remover ${unitOfMeasurement.name}?",
+            positiveButtonText = "Continuar!",
+            negativeButtonText = "Cancelar",
+            actionButton = {
+                deleteUnitOfMeasurement(unitOfMeasurement)
+            }
+        )
+    }
+
     private fun updateUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
         ThreadUtil.exec(
             doInBackground = {
@@ -80,6 +97,17 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
             },
             postExecuteTask = {
                 adapter.submitItem(unitOfMeasurement)
+            }
+        )
+    }
+
+    private fun deleteUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
+        ThreadUtil.exec(
+            doInBackground = {
+                configController.delete(unitOfMeasurement)
+            },
+            postExecuteTask = {
+                adapter.remove(unitOfMeasurement)
             }
         )
     }

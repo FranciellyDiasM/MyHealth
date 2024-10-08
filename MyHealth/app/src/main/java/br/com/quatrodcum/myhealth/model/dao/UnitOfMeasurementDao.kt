@@ -53,4 +53,12 @@ class UnitOfMeasurementDao(context: Context) {
             arrayOf(unitOfMeasurement.name, unitOfMeasurement.id)
         )
     }
+
+    fun delete(unitOfMeasurement: UnitOfMeasurement) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        db.execSQL(
+            "DELETE FROM ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} WHERE ${DB.UNIT_OF_MEASUREMENT.COLUMN_ID} = ?;",
+            arrayOf(unitOfMeasurement.id)
+        )
+    }
 }
