@@ -30,12 +30,10 @@ GitHub: Repositório para controle de versão e colaboração entre os membros d
 
   Colaboradores
 
-Fabio Boeker Junior
-Francielly
-João
-Juan Tavares Marcolino Lirio
-Kayke
-Pedro
-Rodrigo
-Salomão
-William Trancoso
+FABIO BOEKER JUNIOR
+FRANCIELLY DIAS MACEDO
+JOÃO GUILHERME CRISTINO HEIDMANN
+JUAN TAVARES MARCOLINO LIRIO
+KAYKE RIOS DE PAULA
+PEDRO HENRIQUE DE FREITAS TESSNIARI
+RODRIGO SANTOS ROCHA
