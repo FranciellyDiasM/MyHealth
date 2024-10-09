@@ -22,6 +22,7 @@ Interface Intuitiva e Amigável: Desenvolvida em Kotlin para Android, a interfac
 Kotlin: Linguagem de programação utilizada para o desenvolvimento do aplicativo Android.
 SQLite: Banco de dados local para armazenar informações sobre os usuários e cardápios personalizados.
 GitHub: Repositório para controle de versão e colaboração entre os membros da equipe.
+Trello: Kanban para gestão de tarefas e visualização de progresso.
 
   Estrutura do Projeto
 
