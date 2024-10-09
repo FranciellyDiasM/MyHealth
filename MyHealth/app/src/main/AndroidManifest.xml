@@ -18,6 +18,11 @@
             android:exported="false"
             android:screenOrientation="userPortrait" />
         <activity
+            android:name=".view.config.objective.ObjectiveActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
+        <activity
             android:name=".view.config.ConfigActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"

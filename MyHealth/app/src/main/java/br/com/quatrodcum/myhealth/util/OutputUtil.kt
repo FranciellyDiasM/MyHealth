@@ -39,9 +39,11 @@ fun Context.showSimpleDialog(
 fun Context.showInputDialog(
     title: String,
     message: String,
-    actionButton: (String) -> Unit
+    default: String = "",
+    actionButton: (String) -> Unit = {}
 ) {
     val input = AppCompatEditText(this)
+    input.setText(default)
 
     val container = FrameLayout(this)
     val params = FrameLayout.LayoutParams(

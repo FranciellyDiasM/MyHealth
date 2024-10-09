@@ -2,6 +2,9 @@ package br.com.quatrodcum.myhealth.model.dao
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.COLUMN_ID
+import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.COLUMN_NAME
+import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.TABLE_NAME
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
 
@@ -12,15 +15,15 @@ class UnitOfMeasurementDao(context: Context) {
         val unitOfMeasurements = mutableListOf<UnitOfMeasurement>()
         val db: SQLiteDatabase = dbHelper.readableDatabase
         val cursor = db.rawQuery(
-            "SELECT * FROM ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME}",
+            "SELECT * FROM $TABLE_NAME",
             null
         )
 
         if (cursor.moveToFirst()) {
             do {
                 val unitOfMeasurement = UnitOfMeasurement(
-                    id = cursor.getInt(cursor.getColumnIndexOrThrow(DB.UNIT_OF_MEASUREMENT.COLUMN_ID)),
-                    name = cursor.getString(cursor.getColumnIndexOrThrow(DB.UNIT_OF_MEASUREMENT.COLUMN_NAME))
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                    name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
                 )
                 unitOfMeasurements.add(unitOfMeasurement)
             } while (cursor.moveToNext())
@@ -34,8 +37,8 @@ class UnitOfMeasurementDao(context: Context) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
             """
-            INSERT INTO ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} 
-            (${DB.UNIT_OF_MEASUREMENT.COLUMN_NAME})
+            INSERT INTO $TABLE_NAME 
+            ($COLUMN_NAME)
             VALUES (?);
             """,
             arrayOf(unitOfMeasurement.name)
@@ -46,9 +49,9 @@ class UnitOfMeasurementDao(context: Context) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
             """
-                    UPDATE ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} 
-                    SET ${DB.UNIT_OF_MEASUREMENT.COLUMN_NAME} = ?
-                    WHERE ${DB.UNIT_OF_MEASUREMENT.COLUMN_ID} = ?;
+                    UPDATE $TABLE_NAME 
+                    SET $COLUMN_NAME = ?
+                    WHERE $COLUMN_ID = ?;
                 """,
             arrayOf(unitOfMeasurement.name, unitOfMeasurement.id)
         )
@@ -57,7 +60,7 @@ class UnitOfMeasurementDao(context: Context) {
     fun delete(unitOfMeasurement: UnitOfMeasurement) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
-            "DELETE FROM ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME} WHERE ${DB.UNIT_OF_MEASUREMENT.COLUMN_ID} = ?;",
+            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
             arrayOf(unitOfMeasurement.id)
         )
     }
