@@ -63,4 +63,23 @@ object DB {
         """.trimIndent()
 
     }
+
+    object INGREDIENT {
+        const val TABLE_NAME = "ingredient"
+
+        const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "nome"
+
+        val CREATE_TABLE = """
+            CREATE TABLE $TABLE_NAME (
+                $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_NAME TEXT NOT NULL
+            );
+        """.trimIndent()
+
+        val INIT = """
+            INSERT INTO $TABLE_NAME ($COLUMN_NAME)
+            VALUES ('ovo'), ('cebola'), ('sal'), ('leite'), ('fermento'), ('batata');
+        """.trimIndent()
+    }
 }

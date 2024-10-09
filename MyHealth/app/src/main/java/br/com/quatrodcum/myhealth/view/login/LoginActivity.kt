@@ -13,6 +13,7 @@ import br.com.quatrodcum.myhealth.model.domain.Login
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.showSimpleDialog
+import br.com.quatrodcum.myhealth.view.config.ConfigActivity
 import br.com.quatrodcum.myhealth.view.menu.MenuActivity
 import br.com.quatrodcum.myhealth.view.register.RegisterActivity
 
@@ -63,6 +64,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnRegister.setOnClickListener {
             RegisterActivity.startActivity(this, startForResult)
+        }
+
+        binding.imgConfig.setOnClickListener {
+            ConfigActivity.startActivity(this)
         }
     }
 

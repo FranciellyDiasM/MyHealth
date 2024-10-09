@@ -1,8 +1,11 @@
 package br.com.quatrodcum.myhealth.controller
 
 import android.content.Context
+import br.com.quatrodcum.myhealth.model.dao.DatabaseHelper
+import br.com.quatrodcum.myhealth.model.dao.IngredientDao
 import br.com.quatrodcum.myhealth.model.dao.ObjectiveDao
 import br.com.quatrodcum.myhealth.model.dao.UnitOfMeasurementDao
+import br.com.quatrodcum.myhealth.model.domain.Ingredient
 import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
@@ -10,6 +13,8 @@ class ConfigController(context: Context) {
 
     private val unitOfMeasurementDao: UnitOfMeasurementDao = UnitOfMeasurementDao(context)
     private val objectiveDao: ObjectiveDao = ObjectiveDao(context)
+    private val ingredientDao: IngredientDao = IngredientDao(context)
+    private val databaseHelper = DatabaseHelper(context)
 
     fun getUnitOfMeasurements() : List<UnitOfMeasurement>{
         return unitOfMeasurementDao.getAll()
@@ -41,5 +46,25 @@ class ConfigController(context: Context) {
 
     fun delete(objective: Objective) {
         objectiveDao.delete(objective)
+    }
+
+    fun getIngredients() : List<Ingredient>{
+        return ingredientDao.getAll()
+    }
+
+    fun insert(ingredient: Ingredient) {
+        ingredientDao.insert(ingredient)
+    }
+
+    fun update(ingredient: Ingredient) {
+        ingredientDao.update(ingredient)
+    }
+
+    fun delete(ingredient: Ingredient) {
+        ingredientDao.delete(ingredient)
+    }
+
+    fun dropDatabase() {
+        databaseHelper.deleteDatabase()
     }
 }
