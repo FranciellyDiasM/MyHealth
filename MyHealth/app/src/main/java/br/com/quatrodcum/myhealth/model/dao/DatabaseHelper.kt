@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_NAME = "app_database.db"
@@ -15,16 +15,23 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(DB.OBJECTIVE.CREATE_TABLE)
         db.execSQL(DB.USER.CREATE_TABLE)
         db.execSQL(DB.UNIT_OF_MEASUREMENT.CREATE_TABLE)
+        db.execSQL(DB.INGREDIENT.CREATE_TABLE)
 
         db.execSQL(DB.OBJECTIVE.INIT)
         db.execSQL(DB.UNIT_OF_MEASUREMENT.INIT)
+        db.execSQL(DB.INGREDIENT.INIT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS ${DB.OBJECTIVE.TABLE_NAME}")
         db.execSQL("DROP TABLE IF EXISTS ${DB.USER.TABLE_NAME}")
         db.execSQL("DROP TABLE IF EXISTS ${DB.UNIT_OF_MEASUREMENT.TABLE_NAME}")
+        db.execSQL("DROP TABLE IF EXISTS ${DB.INGREDIENT.TABLE_NAME}")
 
         onCreate(db)
+    }
+
+    fun deleteDatabase(): Boolean {
+        return context.deleteDatabase(DATABASE_NAME)
     }
 }
