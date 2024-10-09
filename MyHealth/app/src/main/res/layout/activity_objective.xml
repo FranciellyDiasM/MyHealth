@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.config.unitofmeasurement.UnitOfMeasurementActivity">
+    tools:context=".view.config.objective.ObjectiveActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -17,10 +17,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/title_unit_of_measurement" />
+        app:title="@string/title_objective" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recUnitOfMeasurement"
+        android:id="@+id/recObjectives"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

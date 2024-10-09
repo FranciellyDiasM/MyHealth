@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.databinding.ActivityConfigBinding
+import br.com.quatrodcum.myhealth.view.config.objective.ObjectiveActivity
 import br.com.quatrodcum.myhealth.view.config.unitofmeasurement.UnitOfMeasurementActivity
 
 class ConfigActivity : AppCompatActivity() {
@@ -27,6 +28,10 @@ class ConfigActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.groupUnitOfMeasurement.setOnClickListener {
             UnitOfMeasurementActivity.startActivity(this)
+        }
+
+        binding.groupObjective.setOnClickListener {
+            ObjectiveActivity.startActivity(this)
         }
     }
 

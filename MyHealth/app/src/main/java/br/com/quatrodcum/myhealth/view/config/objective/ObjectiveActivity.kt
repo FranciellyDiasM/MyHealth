@@ -1,26 +1,26 @@
-package br.com.quatrodcum.myhealth.view.config.unitofmeasurement
+package br.com.quatrodcum.myhealth.view.config.objective
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.controller.ConfigController
-import br.com.quatrodcum.myhealth.databinding.ActivityUnitOfMeasurementBinding
-import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
+import br.com.quatrodcum.myhealth.databinding.ActivityObjectiveBinding
+import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.showInputDialog
 import br.com.quatrodcum.myhealth.util.showYesNoDialog
 import br.com.quatrodcum.myhealth.view.config.UpdateOrDeleteDialogFragment
 
-class UnitOfMeasurementActivity : AppCompatActivity() {
+class ObjectiveActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityUnitOfMeasurementBinding
+    private lateinit var binding: ActivityObjectiveBinding
     private val configController by lazy { ConfigController(this) }
-    private val adapter by lazy { UnitOfMeasurementAdapter() }
+    private val adapter by lazy { ObjectiveAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUnitOfMeasurementBinding.inflate(layoutInflater)
+        binding = ActivityObjectiveBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         setupToolbar()
@@ -34,25 +34,25 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        binding.recUnitOfMeasurement.adapter = adapter
+        binding.recObjectives.adapter = adapter
     }
 
 
     private fun setupListeners() {
         binding.btnAdd.setOnClickListener {
             showInputDialog(
-                title = "Nova unidade de medida",
-                message = "Insira o nome da nova unidade de medida",
+                title = "Novo objetivo",
+                message = "Insira o nome do novo objetivo",
                 actionButton = { userInput ->
-                    insertUnitOfMeasurement(userInput)
+                    insertItem(userInput)
                 }
             )
         }
 
         adapter.setOnItemClickListener { item ->
             val dialog = UpdateOrDeleteDialogFragment.newInstance(
-                title = item.name,
-                message = "O que deseja fazer com a unidade de medida: ${item.name}?"
+                title = item.description,
+                message = "O que deseja fazer com o objetivo? ${item.description}?"
             )
 
             dialog.setOnUpdateClickListener {
@@ -67,57 +67,57 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
         }
     }
 
-    private fun showUpdateItemDialog(unitOfMeasurement: UnitOfMeasurement) {
+    private fun showUpdateItemDialog(item: Objective) {
         showInputDialog(
             title = "Alterar",
-            message = "Alterar ${unitOfMeasurement.name} para:",
-            default = unitOfMeasurement.name,
+            message = "Alterar ${item.description} para:",
+            default = item.description,
             actionButton = { userInput ->
-                val newUnitOfMeasurement = unitOfMeasurement.copy(name = userInput)
-                updateUnitOfMeasurement(newUnitOfMeasurement)
+                val newItem = item.copy(description = userInput)
+                updateItem(newItem)
             }
         )
     }
 
-    private fun showDeleteItemDialog(unitOfMeasurement: UnitOfMeasurement) {
+    private fun showDeleteItemDialog(item: Objective) {
         showYesNoDialog(
             title = "Remover",
-            message = "Esta ação vai remover ${unitOfMeasurement.name}",
+            message = "Esta ação vai remover ${item.description}",
             positiveButtonText = "Continuar!",
             negativeButtonText = "Cancelar",
             actionButton = {
-                deleteUnitOfMeasurement(unitOfMeasurement)
+                deleteItem(item)
             }
         )
     }
 
-    private fun updateUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
+    private fun updateItem(item: Objective) {
         ThreadUtil.exec(
             doInBackground = {
-                configController.update(unitOfMeasurement)
+                configController.update(item)
             },
             postExecuteTask = {
-                adapter.submitItem(unitOfMeasurement)
+                adapter.submitItem(item)
             }
         )
     }
 
-    private fun deleteUnitOfMeasurement(unitOfMeasurement: UnitOfMeasurement) {
+    private fun deleteItem(item: Objective) {
         ThreadUtil.exec(
             doInBackground = {
-                configController.delete(unitOfMeasurement)
+                configController.delete(item)
             },
             postExecuteTask = {
-                adapter.remove(unitOfMeasurement)
+                adapter.remove(item)
             }
         )
     }
 
-    private fun insertUnitOfMeasurement(name: String) {
+    private fun insertItem(name: String) {
         ThreadUtil.exec(
             doInBackground = {
-                val unitOfMeasurement = UnitOfMeasurement(id = null, name = name)
-                configController.insert(unitOfMeasurement)
+                val item = Objective(id = null, description = name)
+                configController.insert(item)
             },
             postExecuteTask = {
                 loadData()
@@ -129,17 +129,17 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
     private fun loadData() {
         ThreadUtil.exec(
             doInBackground = {
-                configController.getUnitOfMeasurements()
+                configController.getObjectives()
             },
-            postExecuteTask = { unitOfMeasurements ->
-                adapter.submitList(unitOfMeasurements)
+            postExecuteTask = { items ->
+                adapter.submitList(items)
             }
         )
     }
 
     companion object {
         fun startActivity(context: Context) {
-            val intent = Intent(context, UnitOfMeasurementActivity::class.java)
+            val intent = Intent(context, ObjectiveActivity::class.java)
             context.startActivity(intent)
         }
     }
