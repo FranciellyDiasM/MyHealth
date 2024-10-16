@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        tools:ignore="DiscouragedApi"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -45,6 +46,11 @@
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".view.login.LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".view.meal.MealActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="userPortrait" />
