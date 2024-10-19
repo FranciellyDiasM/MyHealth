@@ -53,7 +53,7 @@ class UnitOfMeasurementAdapter :
         val tempList = this.currentList.toMutableList()
         val index = tempList.indexOfFirst { it.id == item.id }
 
-        if(index > 0) {
+        if(index >= 0) {
             tempList[index] = item
         }
 
@@ -64,7 +64,7 @@ class UnitOfMeasurementAdapter :
         val tempList = this.currentList.toMutableList()
         val index = tempList.indexOfFirst { it.id == item.id }
 
-        if(index > 0) {
+        if(index >= 0) {
             tempList.removeAt(index)
         }
 
