@@ -5,9 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_ID
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_NAME
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.TABLE_NAME
-import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT
 import br.com.quatrodcum.myhealth.model.domain.Ingredient
-
 
 class IngredientDao(context: Context) {
     private val dbHelper: DatabaseHelper = DatabaseHelper(context)

@@ -2,10 +2,13 @@ package br.com.quatrodcum.myhealth.view.splashscreen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.quatrodcum.myhealth.R
 import br.com.quatrodcum.myhealth.controller.SplashScreenController
 import br.com.quatrodcum.myhealth.databinding.ActivitySplashScreenBinding
+import br.com.quatrodcum.myhealth.model.dao.DB
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
+import br.com.quatrodcum.myhealth.util.renderHtml
 import br.com.quatrodcum.myhealth.view.login.LoginActivity
 import br.com.quatrodcum.myhealth.view.menu.MenuActivity
 
@@ -19,13 +22,41 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.txtMembers.text = getString(R.string.members).renderHtml()
+
+        loadDatabase()
+        loadUser()
+    }
+
+    private fun loadDatabase() {
         ThreadUtil.exec(
             doInBackground = {
-                Thread.sleep(SPLASH_TIME_OUT)
+                splashScreenController.getDatabase()
+            },
+            postExecuteTask = { database ->
+                val databaseDetail = """
+                    |${DB.USER.TABLE_NAME}: ${database.users.size}
+                    |${DB.OBJECTIVE.TABLE_NAME}: ${database.objectives.size}
+                    |${DB.MEAL.TABLE_NAME}: ${database.meals.size}
+                    |${DB.INGREDIENT.TABLE_NAME}: ${database.ingredients.size}
+                    |${DB.UNIT_OF_MEASUREMENT.TABLE_NAME}: ${database.unitOfMeasurements.size}
+                    |${DB.INGREDIENT_MEAL.TABLE_NAME}: ${database.ingredientMeals.size}
+                """.trimMargin()
+
+                binding.txtDatabaseDetails.text = databaseDetail
+            }
+        )
+    }
+
+    private fun loadUser() {
+        ThreadUtil.exec(
+            doInBackground = {
                 splashScreenController.loadLoggedUser()
             },
             postExecuteTask = { user ->
-                navigate(user)
+                binding.btnNext.setOnClickListener {
+                    navigate(user)
+                }
             }
         )
     }
@@ -38,9 +69,5 @@ class SplashScreenActivity : AppCompatActivity() {
             MenuActivity.startActivity(this)
             finish()
         }
-    }
-
-    companion object {
-        const val SPLASH_TIME_OUT = 3000L
     }
 }
