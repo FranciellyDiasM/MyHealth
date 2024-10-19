@@ -358,6 +358,18 @@ class MealDao(context: Context) {
         }
     }
 
+    fun countUsesByObjectiveId(id: Int): Int {
+        return 0
+    }
+
+    fun countUsesByIngredientId(id: Int): Int {
+        return 0
+    }
+
+    fun countUsesByUnitOfMeasurement(id: Int): Int {
+        return 0
+    }
+
     fun delete(mealId: Int) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(

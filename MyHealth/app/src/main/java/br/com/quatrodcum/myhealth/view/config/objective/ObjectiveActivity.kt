@@ -80,9 +80,17 @@ class ObjectiveActivity : AppCompatActivity() {
     }
 
     private fun showDeleteItemDialog(item: Objective) {
+        val inUsed = configController.checkIfUsed(item)
+        val message = if(inUsed) {
+            "Esta ação vai remover ${item.description}"
+        } else {
+            "${item.description} esta sendo usado, esta ação vai remover ele e todos os usuarios e refeições relacionados"
+        }
+
+
         showYesNoDialog(
             title = "Remover",
-            message = "Esta ação vai remover ${item.description}",
+            message = message,
             positiveButtonText = "Continuar!",
             negativeButtonText = "Cancelar",
             actionButton = {

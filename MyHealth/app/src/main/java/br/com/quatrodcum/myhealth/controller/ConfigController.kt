@@ -3,8 +3,10 @@ package br.com.quatrodcum.myhealth.controller
 import android.content.Context
 import br.com.quatrodcum.myhealth.model.dao.DatabaseHelper
 import br.com.quatrodcum.myhealth.model.dao.IngredientDao
+import br.com.quatrodcum.myhealth.model.dao.MealDao
 import br.com.quatrodcum.myhealth.model.dao.ObjectiveDao
 import br.com.quatrodcum.myhealth.model.dao.UnitOfMeasurementDao
+import br.com.quatrodcum.myhealth.model.dao.UserDao
 import br.com.quatrodcum.myhealth.model.data.LocalPreferences
 import br.com.quatrodcum.myhealth.model.domain.Ingredient
 import br.com.quatrodcum.myhealth.model.domain.Objective
@@ -17,8 +19,10 @@ class ConfigController(context: Context) {
     private val ingredientDao: IngredientDao = IngredientDao(context)
     private val databaseHelper = DatabaseHelper(context)
     private val localPreferences = LocalPreferences(context)
+    private val userDao: UserDao = UserDao(context)
+    private val mealDao: MealDao = MealDao(context)
 
-    fun getUnitOfMeasurements() : List<UnitOfMeasurement>{
+    fun getUnitOfMeasurements(): List<UnitOfMeasurement> {
         return unitOfMeasurementDao.getAll()
     }
 
@@ -34,7 +38,7 @@ class ConfigController(context: Context) {
         unitOfMeasurementDao.delete(unitOfMeasurement)
     }
 
-    fun getObjectives() : List<Objective>{
+    fun getObjectives(): List<Objective> {
         return objectiveDao.getAllObjectives()
     }
 
@@ -50,7 +54,7 @@ class ConfigController(context: Context) {
         objectiveDao.delete(objective)
     }
 
-    fun getIngredients() : List<Ingredient>{
+    fun getIngredients(): List<Ingredient> {
         return ingredientDao.getAll()
     }
 
@@ -69,5 +73,30 @@ class ConfigController(context: Context) {
     fun dropDatabase() {
         databaseHelper.deleteDatabase()
         localPreferences.clearLogin()
+    }
+
+    fun checkIfUsed(item: Objective) : Boolean {
+        val objectiveId = item.id ?: return false
+
+        var count = userDao.countUsesByObjectiveId(objectiveId)
+        count += mealDao.countUsesByObjectiveId(objectiveId)
+
+        return count > 0
+    }
+
+    fun checkIfUsed(item: Ingredient) : Boolean {
+        val ingredientId = item.id ?: return false
+
+        val count = mealDao.countUsesByIngredientId(ingredientId)
+
+        return count > 0
+    }
+
+    fun checkIfUsed(item: UnitOfMeasurement) : Boolean {
+        val ingredientId = item.id ?: return false
+
+        val count = mealDao.countUsesByUnitOfMeasurement(ingredientId)
+
+        return count > 0
     }
 }

@@ -150,4 +150,8 @@ class UserDao(context: Context) {
             null
         }
     }
+
+    fun countUsesByObjectiveId(objectiveId: Int) : Int{
+        return 0
+    }
 }
