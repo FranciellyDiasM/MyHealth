@@ -82,9 +82,9 @@ class IngredientActivity : AppCompatActivity() {
     private fun showDeleteItemDialog(item: Ingredient) {
         val inUsed = configController.checkIfUsed(item)
         val message = if(inUsed) {
-            "Esta ação vai remover ${item.name}"
-        } else {
             "${item.name} esta sendo em alguma refeição, esta ação vai remover todos os ingredientes relacionados"
+        } else {
+            "Esta ação vai remover ${item.name}"
         }
 
         showYesNoDialog(

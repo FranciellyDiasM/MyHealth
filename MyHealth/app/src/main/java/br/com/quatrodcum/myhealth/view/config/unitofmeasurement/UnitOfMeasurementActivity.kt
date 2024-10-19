@@ -82,9 +82,9 @@ class UnitOfMeasurementActivity : AppCompatActivity() {
     private fun showDeleteItemDialog(unitOfMeasurement: UnitOfMeasurement) {
         val inUsed = configController.checkIfUsed(unitOfMeasurement)
         val message = if(inUsed) {
-            "Esta ação vai remover ${unitOfMeasurement.name}"
-        } else {
             "${unitOfMeasurement.name} esta sendo usado, esta ação vai remover ele e todos os itens de receita relacionados"
+        } else {
+            "Esta ação vai remover ${unitOfMeasurement.name}"
         }
 
         showYesNoDialog(
