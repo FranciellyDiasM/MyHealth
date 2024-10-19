@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="7dp"
-        android:text="Ingrediente"
+        android:text="unid. de medida"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/cbxUnitOfMeasurement"
         app:layout_constraintTop_toTopOf="@id/cbxUnitOfMeasurement" />
