@@ -1,4 +1,4 @@
-package br.com.quatrodcum.myhealth.view.meal
+package br.com.quatrodcum.myhealth.view.meal.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

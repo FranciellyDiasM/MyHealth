@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/cbxIngredient"
+        style="@style/Combobox"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/spinner_item" />
+
+    <TextView
+        android:id="@+id/lblObjective"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:text="Ingrediente"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/cbxIngredient"
+        app:layout_constraintTop_toTopOf="@id/cbxIngredient" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lblQuantity"
+        style="@style/TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="6dp"
+        android:hint="Quantidade"
+        app:layout_constraintEnd_toStartOf="@id/cbxUnitOfMeasurement"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbxIngredient">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtQuantity"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/cbxUnitOfMeasurement"
+        style="@style/Combobox"
+        android:layout_width="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lblQuantity"
+        app:layout_constraintTop_toBottomOf="@id/cbxIngredient"
+        tools:listitem="@layout/spinner_item" />
+
+    <TextView
+        android:id="@+id/lblUnitOfMeasurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:text="Ingrediente"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/cbxUnitOfMeasurement"
+        app:layout_constraintTop_toTopOf="@id/cbxUnitOfMeasurement" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAdd"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Adicionar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbxUnitOfMeasurement" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

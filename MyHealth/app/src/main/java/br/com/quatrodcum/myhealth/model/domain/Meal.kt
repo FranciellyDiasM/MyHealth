@@ -7,5 +7,5 @@ data class Meal(
     val description: String,
     val objective: Objective,
     val preparationMode: String,
-    val ingredients: List<Ingredient>
+    val ingredients: List<IngredientMeal>
 )

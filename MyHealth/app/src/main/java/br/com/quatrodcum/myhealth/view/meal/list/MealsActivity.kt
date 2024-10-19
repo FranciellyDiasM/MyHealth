@@ -1,19 +1,22 @@
-package br.com.quatrodcum.myhealth.view.meal
+package br.com.quatrodcum.myhealth.view.meal.list
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.controller.MealController
 import br.com.quatrodcum.myhealth.databinding.ActivityMealBinding
 import br.com.quatrodcum.myhealth.util.ThreadUtil
-import br.com.quatrodcum.myhealth.util.showInputDialog
-import br.com.quatrodcum.myhealth.util.toast
-import br.com.quatrodcum.myhealth.view.config.UpdateOrDeleteDialogFragment
+import br.com.quatrodcum.myhealth.util.log
+import br.com.quatrodcum.myhealth.view.meal.detail.MealDetailActivity
 
-class MealActivity : AppCompatActivity() {
+class MealsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMealBinding
     private val mealController by lazy { MealController(this) }
     private val adapter by lazy { MealAdapter() }
+
+    private lateinit var startMealDetailForResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,25 +38,21 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        startMealDetailForResult = MealDetailActivity.registerForActivityResult(
+            activity = this,
+            callback = { refresh ->
+                if (refresh) {
+                    loadData()
+                }
+            }
+        )
+
         binding.btnAdd.setOnClickListener {
-            toast("A implementar")
+            MealDetailActivity.startActivity(this, startMealDetailForResult)
         }
 
         adapter.setOnItemClickListener { item ->
-            val dialog = UpdateOrDeleteDialogFragment.newInstance(
-                title = item.name,
-                message = "O que deseja fazer com o ingrediente? ${item.name}?"
-            )
-
-            dialog.setOnUpdateClickListener {
-                toast("a implementar")
-            }
-
-            dialog.setOnDeleteClickListener {
-                toast("a implementar")
-            }
-
-            dialog.show(supportFragmentManager, this::class.java.simpleName)
+            MealDetailActivity.startActivity(this, startMealDetailForResult, item.id ?: -1)
         }
     }
 
@@ -64,6 +63,7 @@ class MealActivity : AppCompatActivity() {
             },
             postExecuteTask = { items ->
                 adapter.submitList(items)
+                log(items.toString())
             }
         )
     }

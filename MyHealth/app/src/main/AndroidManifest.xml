@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        tools:ignore="DiscouragedApi"
+        tools:ignore="DiscouragedApi, LockedOrientationActivity"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -50,7 +50,12 @@
             android:exported="false"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name=".view.meal.MealActivity"
+            android:name=".view.meal.list.MealsActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".view.meal.detail.MealDetailActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:screenOrientation="userPortrait" />
