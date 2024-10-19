@@ -1,8 +1,8 @@
 package br.com.quatrodcum.myhealth.view.meal.list
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.controller.MealController
 import br.com.quatrodcum.myhealth.databinding.ActivityMealBinding
@@ -16,7 +16,7 @@ class MealsActivity : AppCompatActivity() {
     private val mealController by lazy { MealController(this) }
     private val adapter by lazy { MealAdapter() }
 
-    private lateinit var startMealDetailForResult: ActivityResultLauncher<Intent>
+    private val objectiveId: Int by lazy { getObjectiveId(intent) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,10 @@ class MealsActivity : AppCompatActivity() {
         setupToolbar()
         setupViews()
         setupListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadData()
     }
 
@@ -38,34 +42,45 @@ class MealsActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        startMealDetailForResult = MealDetailActivity.registerForActivityResult(
-            activity = this,
-            callback = { refresh ->
-                if (refresh) {
-                    loadData()
-                }
-            }
-        )
-
         binding.btnAdd.setOnClickListener {
-            MealDetailActivity.startActivity(this, startMealDetailForResult)
+            MealDetailActivity.startActivity(this)
         }
 
         adapter.setOnItemClickListener { item ->
-            MealDetailActivity.startActivity(this, startMealDetailForResult, item.id ?: -1)
+            MealDetailActivity.startActivity(this, item.id ?: -1)
         }
     }
 
     private fun loadData() {
         ThreadUtil.exec(
             doInBackground = {
-                mealController.getAllMeal()
+                if(objectiveId > 0) {
+                    mealController.getAllMealByObjective(objectiveId)
+                } else {
+                    mealController.getAllMeal()
+                }
             },
             postExecuteTask = { items ->
                 adapter.submitList(items)
                 log(items.toString())
             }
         )
+    }
+
+    companion object {
+        fun startActivity(context: Context, objectiveId: Int = -1) {
+             val intent = Intent(context, MealsActivity::class.java).apply {
+                putExtra(EXTRA_OBJECTIVE_ID, objectiveId)
+            }
+
+            context.startActivity(intent)
+        }
+
+        private fun getObjectiveId(intent: Intent): Int {
+            return intent.getIntExtra(EXTRA_OBJECTIVE_ID, -1)
+        }
+
+        private const val EXTRA_OBJECTIVE_ID = "mealId"
     }
 
 }

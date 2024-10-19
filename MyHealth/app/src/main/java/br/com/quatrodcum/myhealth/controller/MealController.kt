@@ -25,6 +25,10 @@ class MealController(context: Context) {
         return mealDao.getAll()
     }
 
+    fun getAllMealByObjective(objectiveId : Int): List<Meal> {
+        return mealDao.getByObjective(objectiveId)
+    }
+
     fun getMeal(id: Int): Meal? {
         return mealDao.get(id)
     }

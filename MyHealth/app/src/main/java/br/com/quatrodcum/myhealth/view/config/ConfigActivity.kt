@@ -11,6 +11,7 @@ import br.com.quatrodcum.myhealth.util.showYesNoDialog
 import br.com.quatrodcum.myhealth.view.config.ingredient.IngredientActivity
 import br.com.quatrodcum.myhealth.view.config.objective.ObjectiveActivity
 import br.com.quatrodcum.myhealth.view.config.unitofmeasurement.UnitOfMeasurementActivity
+import br.com.quatrodcum.myhealth.view.login.LoginActivity
 import br.com.quatrodcum.myhealth.view.meal.list.MealsActivity
 
 class ConfigActivity : AppCompatActivity() {
@@ -45,18 +46,18 @@ class ConfigActivity : AppCompatActivity() {
         }
 
         binding.groupMeal.setOnClickListener {
-            val intent = Intent(this, MealsActivity::class.java)
-            startActivity(intent)
+            MealsActivity.startActivity(this)
         }
 
         binding.groupClear.setOnClickListener {
             showYesNoDialog(
                 title = "Limpar banco",
-                message = "Esta ação vai limpar todos os dados do banco de dados",
+                message = "Esta ação vai limpar todos os dados do banco de dados e preferencias",
                 positiveButtonText = "Confirmar",
                 negativeButtonText = "Cancelar",
                 actionButton = {
                     dropDatabase()
+                    goToLoginOnTop()
                 }
             )
         }
@@ -68,6 +69,13 @@ class ConfigActivity : AppCompatActivity() {
                 configController.dropDatabase()
             }
         )
+    }
+
+    private fun goToLoginOnTop() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     companion object {

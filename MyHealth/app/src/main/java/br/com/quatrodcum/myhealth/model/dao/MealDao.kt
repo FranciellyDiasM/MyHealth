@@ -171,6 +171,84 @@ class MealDao(context: Context) {
         return mealsMap.values.toList()
     }
 
+    fun getByObjective(objectiveId: Int): List<Meal> {
+        val db = dbHelper.readableDatabase
+        val mealsMap = mutableMapOf<Int, Meal>()
+
+        val cursor = db.rawQuery(
+            """SELECT 
+                    m.*,
+                    o.id AS ${OBJECTIVE.COLUMN_ID_ALIAS}, 
+                    o.descricao AS ${OBJECTIVE.COLUMN_DESCRIPTION_ALIAS},
+                    i.id AS ${INGREDIENT.COLUMN_ID_ALIAS},
+                    i.nome AS ${INGREDIENT.COLUMN_NAME_ALIAS},
+                    ir.quantidade AS ${INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS},
+                    um.id AS ${UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS},
+                    um.nome AS ${UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS}
+                FROM $TABLE_NAME m
+                JOIN ${OBJECTIVE.TABLE_NAME} o ON m.${COLUMN_OBJECTIVE_ID} = o.${OBJECTIVE.COLUMN_ID}
+                LEFT JOIN ${INGREDIENT_MEAL.TABLE_NAME} ir ON m.${COLUMN_ID} = ir.${INGREDIENT_MEAL.COLUMN_MEAL_ID}
+                LEFT JOIN ${INGREDIENT.TABLE_NAME} i ON ir.${INGREDIENT_MEAL.COLUMN_INGREDIENT_ID} = i.${INGREDIENT.COLUMN_ID}
+                LEFT JOIN ${UNIT_OF_MEASUREMENT.TABLE_NAME} um ON ir.${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = um.${UNIT_OF_MEASUREMENT.COLUMN_ID}
+                WHERE m.$COLUMN_OBJECTIVE_ID = ?;
+            """
+                .trimIndent(), arrayOf(objectiveId.toString())
+        )
+
+        cursor.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    val mealId = cursor.getInt(COLUMN_ID)
+
+                    val meal = mealsMap.getOrPut(mealId) {
+                        val mealName = cursor.getString(COLUMN_NAME)
+                        val mealCalories = cursor.getDouble(COLUMN_CALORIES)
+                        val mealDescription = cursor.getString(COLUMN_DESCRIPTION)
+                        val mealPreparationMode = cursor.getString(COLUMN_PREPARATION_MODE)
+
+                        val objectiveId = cursor.getInt(OBJECTIVE.COLUMN_ID_ALIAS)
+                        val objectiveDescription =
+                            cursor.getString(OBJECTIVE.COLUMN_DESCRIPTION_ALIAS)
+                        val objective = Objective(objectiveId, objectiveDescription)
+
+                        Meal(
+                            id = mealId,
+                            name = mealName,
+                            calories = mealCalories,
+                            description = mealDescription,
+                            objective = objective,
+                            preparationMode = mealPreparationMode,
+                            ingredients = mutableListOf()
+                        )
+                    }
+
+                    Log.i("MyHealth", meal.name)
+
+                    val ingredientId = cursor.getInt(INGREDIENT.COLUMN_ID_ALIAS)
+                    val ingredientName = cursor.getString(INGREDIENT.COLUMN_NAME_ALIAS)
+                    val ingredientQuantity = cursor.getInt(INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS)
+                    val unitOfMeasureId = cursor.getInt(UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS)
+                    val unitOfMeasureName = cursor.getString(UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS)
+
+
+                    if (ingredientId > 0) {
+                        val ingredient = Ingredient(id = ingredientId, name = ingredientName)
+                        val unitOfMeasure = UnitOfMeasurement(unitOfMeasureId, unitOfMeasureName)
+
+                        val ingredientMeal =
+                            IngredientMeal(ingredient, unitOfMeasure, ingredientQuantity)
+
+                        (meal.ingredients as MutableList).add(ingredientMeal)
+                    }
+
+
+                } while (cursor.moveToNext())
+            }
+        }
+
+        return mealsMap.values.toList()
+    }
+
     fun insert(meal: Meal) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
 

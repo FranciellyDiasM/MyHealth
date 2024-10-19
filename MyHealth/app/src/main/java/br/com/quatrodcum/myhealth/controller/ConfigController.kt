@@ -5,6 +5,7 @@ import br.com.quatrodcum.myhealth.model.dao.DatabaseHelper
 import br.com.quatrodcum.myhealth.model.dao.IngredientDao
 import br.com.quatrodcum.myhealth.model.dao.ObjectiveDao
 import br.com.quatrodcum.myhealth.model.dao.UnitOfMeasurementDao
+import br.com.quatrodcum.myhealth.model.data.LocalPreferences
 import br.com.quatrodcum.myhealth.model.domain.Ingredient
 import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
@@ -15,6 +16,7 @@ class ConfigController(context: Context) {
     private val objectiveDao: ObjectiveDao = ObjectiveDao(context)
     private val ingredientDao: IngredientDao = IngredientDao(context)
     private val databaseHelper = DatabaseHelper(context)
+    private val localPreferences = LocalPreferences(context)
 
     fun getUnitOfMeasurements() : List<UnitOfMeasurement>{
         return unitOfMeasurementDao.getAll()
@@ -66,5 +68,6 @@ class ConfigController(context: Context) {
 
     fun dropDatabase() {
         databaseHelper.deleteDatabase()
+        localPreferences.clearLogin()
     }
 }
