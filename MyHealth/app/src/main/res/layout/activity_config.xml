@@ -44,10 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:textSize="15sp"
             android:layout_marginEnd="16dp"
             android:text="Unidade de medida"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgUnitOfMeasurement"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,26 +57,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="13sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Lista com as unidades de medidas, possibilidade de adicionar, alterar ou excluir"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgUnitOfMeasurement"
-            app:layout_constraintTop_toBottomOf="@id/titleUnitOfMeasurement"/>
+            app:layout_constraintTop_toBottomOf="@id/titleUnitOfMeasurement" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/separator"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupUnitOfMeasurement"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupUnitOfMeasurement" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/groupObjective"
@@ -103,10 +103,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:textSize="15sp"
             android:layout_marginEnd="16dp"
             android:text="Objetivo"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgObjective"
             app:layout_constraintTop_toTopOf="parent" />
@@ -116,26 +116,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="13sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Gerencie seus objetivos, cadastrando objetivos pessoais e a finalidade para as refeiçoes"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgObjective"
-            app:layout_constraintTop_toBottomOf="@id/titleObjective"/>
+            app:layout_constraintTop_toBottomOf="@id/titleObjective" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/separator"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupObjective"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupObjective" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/groupIngredient"
@@ -162,10 +162,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:textSize="15sp"
             android:layout_marginEnd="16dp"
             android:text="Ingrediente"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgIngredient"
             app:layout_constraintTop_toTopOf="parent" />
@@ -175,26 +175,85 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="13sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Gerencie seus ingredientes deixando suas refeições cada vez mais customizaveis e saborosas."
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgIngredient"
-            app:layout_constraintTop_toBottomOf="@id/titleIngredient"/>
+            app:layout_constraintTop_toBottomOf="@id/titleIngredient" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/separator"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupIngredient"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupIngredient" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/groupMeal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupIngredient">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMeal"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_meal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/titleMeal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleMeal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Refeição"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgMeal"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/descriptionMeal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Gerencie suas refeições de acordo com os teus objetivos pessoais"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgMeal"
+            app:layout_constraintTop_toBottomOf="@id/titleMeal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupMeal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/groupClear"
@@ -202,7 +261,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupIngredient">
+        app:layout_constraintTop_toBottomOf="@id/groupMeal">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgClear"
@@ -221,10 +280,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:textSize="15sp"
             android:layout_marginEnd="16dp"
             android:text="Limpar banco de dados"
             android:textColor="@color/black"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgClear"
             app:layout_constraintTop_toTopOf="parent" />
@@ -234,25 +293,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="13sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="Apague todos os dados do banco de dados(use apenas para testes e desenvolvimento)"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgClear"
-            app:layout_constraintTop_toBottomOf="@id/titleClear"/>
+            app:layout_constraintTop_toBottomOf="@id/titleClear" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/separator"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupClear"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupClear" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

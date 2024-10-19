@@ -30,4 +30,26 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
+    <style name="TextInputLayout">
+        <item name="boxBackgroundColor">@color/bg_edittext</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:textColor">@color/edit_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="EditTextArea" parent="EditText">
+        <item name="android:background">@drawable/bg_neutral_outline</item>
+        <item name="android:gravity">top</item>
+        <item name="android:minLines">4</item>
+    </style>
+
+    <style name="Combobox">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:textColor">@color/edit_text_color</item>
+    </style>
 </resources>

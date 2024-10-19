@@ -11,6 +11,7 @@ import br.com.quatrodcum.myhealth.util.showYesNoDialog
 import br.com.quatrodcum.myhealth.view.config.ingredient.IngredientActivity
 import br.com.quatrodcum.myhealth.view.config.objective.ObjectiveActivity
 import br.com.quatrodcum.myhealth.view.config.unitofmeasurement.UnitOfMeasurementActivity
+import br.com.quatrodcum.myhealth.view.meal.list.MealsActivity
 
 class ConfigActivity : AppCompatActivity() {
 
@@ -41,6 +42,11 @@ class ConfigActivity : AppCompatActivity() {
 
         binding.groupIngredient.setOnClickListener {
             IngredientActivity.startActivity(this)
+        }
+
+        binding.groupMeal.setOnClickListener {
+            val intent = Intent(this, MealsActivity::class.java)
+            startActivity(intent)
         }
 
         binding.groupClear.setOnClickListener {

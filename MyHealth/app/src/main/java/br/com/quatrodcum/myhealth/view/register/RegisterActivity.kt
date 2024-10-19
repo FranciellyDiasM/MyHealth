@@ -16,6 +16,7 @@ import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.clearError
+import br.com.quatrodcum.myhealth.view.comboboxobjective.ObjectiveAdapter
 import java.util.Locale
 
 class RegisterActivity : AppCompatActivity() {
