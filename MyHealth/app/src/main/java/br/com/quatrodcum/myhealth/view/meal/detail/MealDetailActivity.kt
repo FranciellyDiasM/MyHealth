@@ -266,28 +266,16 @@ class MealDetailActivity : AppCompatActivity() {
     companion object {
         fun startActivity(
             context: Context,
-            startForResult: ActivityResultLauncher<Intent>,
             mealId: Int = -1
         ) {
             val intent = Intent(context, MealDetailActivity::class.java).apply {
                 putExtra(EXTRA_MEAL_ID, mealId)
             }
 
-            startForResult.launch(intent)
+            context.startActivity(intent)
         }
 
-        fun registerForActivityResult(
-            activity: ComponentActivity,
-            callback: (refresh: Boolean) -> Unit
-        ): ActivityResultLauncher<Intent> {
-            return activity.registerForActivityResult(
-                ActivityResultContracts.StartActivityForResult()
-            ) { result ->
-                callback(result.resultCode == RESULT_OK)
-            }
-        }
-
-        fun getMealId(intent: Intent): Int {
+        private fun getMealId(intent: Intent): Int {
             return intent.getIntExtra(EXTRA_MEAL_ID, -1)
         }
 
