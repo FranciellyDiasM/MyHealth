@@ -72,13 +72,18 @@ class MealDao(context: Context) {
                 )
 
                 do {
-                    val ingredientId = cursor.getInt(INGREDIENT.COLUMN_ID_ALIAS)
-                    val ingredientName = cursor.getString(INGREDIENT.COLUMN_NAME_ALIAS)
-                    val ingredientQuantity = cursor.getInt(INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS)
-                    val unitOfMeasureId = cursor.getInt(UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS)
-                    val unitOfMeasureName = cursor.getString(UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS)
+                    val ingredientId = try {
+                        cursor.getInt(INGREDIENT.COLUMN_ID_ALIAS)
+                    } catch (e: Exception) {
+                        0
+                    }
 
                     if (ingredientId > 0) {
+                        val ingredientName = cursor.getString(INGREDIENT.COLUMN_NAME_ALIAS)
+                        val ingredientQuantity = cursor.getInt(INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS)
+                        val unitOfMeasureId = cursor.getInt(UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS)
+                        val unitOfMeasureName = cursor.getString(UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS)
+
                         val ingredient = Ingredient(id = ingredientId, name = ingredientName)
                         val unitOfMeasure = UnitOfMeasurement(unitOfMeasureId, unitOfMeasureName)
 
@@ -146,14 +151,18 @@ class MealDao(context: Context) {
 
                     Log.i("MyHealth", meal.name)
 
-                    val ingredientId = cursor.getInt(INGREDIENT.COLUMN_ID_ALIAS)
-                    val ingredientName = cursor.getString(INGREDIENT.COLUMN_NAME_ALIAS)
-                    val ingredientQuantity = cursor.getInt(INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS)
-                    val unitOfMeasureId = cursor.getInt(UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS)
-                    val unitOfMeasureName = cursor.getString(UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS)
-
+                    val ingredientId = try {
+                        cursor.getInt(INGREDIENT.COLUMN_ID_ALIAS)
+                    } catch (e: Exception) {
+                        0
+                    }
 
                     if (ingredientId > 0) {
+                        val ingredientName = cursor.getString(INGREDIENT.COLUMN_NAME_ALIAS)
+                        val ingredientQuantity = cursor.getInt(INGREDIENT_MEAL.COLUMN_QUANTITY_ALIAS)
+                        val unitOfMeasureId = cursor.getInt(UNIT_OF_MEASUREMENT.COLUMN_ID_ALIAS)
+                        val unitOfMeasureName = cursor.getString(UNIT_OF_MEASUREMENT.COLUMN_NAME_ALIAS)
+
                         val ingredient = Ingredient(id = ingredientId, name = ingredientName)
                         val unitOfMeasure = UnitOfMeasurement(unitOfMeasureId, unitOfMeasureName)
 
@@ -359,22 +368,76 @@ class MealDao(context: Context) {
     }
 
     fun countUsesByObjectiveId(id: Int): Int {
+        val db = dbHelper.readableDatabase
+
+        db.rawQuery(
+            """
+                SELECT 
+                    COUNT(*) 
+                FROM 
+                    $TABLE_NAME
+                WHERE 
+                    $COLUMN_OBJECTIVE_ID = ?;
+            """.trimIndent(),
+            arrayOf(id.toString())
+        ).use { cursor ->
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(0)
+            }
+        }
+
         return 0
     }
 
     fun countUsesByIngredientId(id: Int): Int {
+        val db = dbHelper.readableDatabase
+
+        db.rawQuery(
+            """
+                SELECT 
+                    COUNT(*) 
+                FROM 
+                    ${INGREDIENT_MEAL.TABLE_NAME}
+                WHERE 
+                    ${DB.INGREDIENT_MEAL.COLUMN_INGREDIENT_ID} = ?;
+            """.trimIndent(),
+            arrayOf(id.toString())
+        ).use { cursor ->
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(0)
+            }
+        }
+
         return 0
     }
 
     fun countUsesByUnitOfMeasurement(id: Int): Int {
+        val db = dbHelper.readableDatabase
+
+        db.rawQuery(
+            """
+                SELECT 
+                    COUNT(*) 
+                FROM 
+                    ${INGREDIENT_MEAL.TABLE_NAME}
+                WHERE 
+                    ${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = ?;
+            """.trimIndent(),
+            arrayOf(id.toString())
+        ).use { cursor ->
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(0)
+            }
+        }
+
         return 0
     }
 
-    fun delete(mealId: Int) {
+    fun delete(id: Int) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
             "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-            arrayOf(mealId)
+            arrayOf(id)
         )
     }
 }

@@ -58,9 +58,17 @@ class IngredientDao(context: Context) {
 
     fun delete(ingredient: Ingredient) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-            arrayOf(ingredient.id)
-        )
+
+        try {
+            db.beginTransaction()
+            db.execSQL(
+                "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(ingredient.id)
+            )
+
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 }

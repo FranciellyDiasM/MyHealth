@@ -59,9 +59,17 @@ class ObjectiveDao(context: Context) {
 
     fun delete(objective: Objective) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-            arrayOf(objective.id)
-        )
+
+        try {
+            db.beginTransaction()
+            db.execSQL(
+                "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(objective.id)
+            )
+
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 }

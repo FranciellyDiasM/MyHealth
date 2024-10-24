@@ -151,7 +151,27 @@ class UserDao(context: Context) {
         }
     }
 
-    fun countUsesByObjectiveId(objectiveId: Int) : Int{
+    fun countUsesByObjectiveId(objectiveId: Int): Int {
+        val db = dbHelper.readableDatabase
+
+        db.rawQuery(
+            """
+                SELECT 
+                    COUNT(*) 
+                FROM 
+                    ${DB.USER.TABLE_NAME} 
+                WHERE 
+                    ${DB.USER.COLUMN_OBJECTIVE_ID} = ?;
+            """.trimIndent(),
+            arrayOf(objectiveId.toString())
+        ).use { cursor ->
+
+            if(cursor.moveToFirst()) {
+                return cursor.getInt(0)
+            }
+
+        }
+
         return 0
     }
 }

@@ -7,7 +7,6 @@ import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.COLUMN_NAME
 import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.TABLE_NAME
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
-
 class UnitOfMeasurementDao(context: Context) {
     private val dbHelper: DatabaseHelper = DatabaseHelper(context)
 
@@ -59,9 +58,17 @@ class UnitOfMeasurementDao(context: Context) {
 
     fun delete(unitOfMeasurement: UnitOfMeasurement) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-            arrayOf(unitOfMeasurement.id)
-        )
+
+        try {
+            db.beginTransaction()
+            db.execSQL(
+                "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(unitOfMeasurement.id)
+            )
+
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 }
