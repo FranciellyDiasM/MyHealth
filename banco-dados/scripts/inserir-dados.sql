@@ -20,7 +20,7 @@ VALUES
     ('xícara');
 	
 	
-INSERT INTO ingredient (nome)
+INSERT INTO ingrediente (nome)
 VALUES 
     ('ovo'), 
     ('cebola'), 
@@ -81,7 +81,7 @@ VALUES
     (9, 3, 1, 10),      -- 1 xícara de feijão
     (10, 3, 1, 3),      -- 1 colher de sopa de azeite
     (3, 3, 1, 2),       -- 1 pitada de sal
-    (2, 3, 1, 9);       -- 1 fatia de cebola
+    (2, 3, 1, 9),       -- 1 fatia de cebola
     
     -- Sanduíche de peito de peru
     (11, 4, 2, 8),      -- 2 unidades de tomate

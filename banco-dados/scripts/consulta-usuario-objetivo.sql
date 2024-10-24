@@ -1,23 +1,40 @@
+-- BUSCA TODAS AS RECEITAS COM OS INGREDIENTES
 SELECT 
-    m.id AS meal_id, 
-    m.nome AS meal_name, 
-    m.calorias AS meal_calories, 
-    m.descricao AS meal_description, 
-    m.modo_preparo AS meal_preparation_mode,
-    o.id AS objective_id, 
-    o.descricao AS objective_description,
-    i.id AS ingredient_id,
-    i.nome AS ingredient_name,
-    ir.quantidade AS ingredient_quantity,
-    um.id AS unit_of_measure_id,
-    um.nome AS unit_of_measure_name
-FROM refeicao m
-JOIN objetivo o ON m.objetivo_id = o.id
-LEFT JOIN ingrediente_refeicao ir ON m.id = ir.refeicao_id
-LEFT JOIN ingredient i ON ir.ingrediente_id = i.id
-LEFT JOIN unidade_medida um ON ir.unidade_medida_id = um.id;
+  m.*, 
+  o.id AS obj_id, 
+  o.descricao AS obj_descricao, 
+  i.id AS ing_id, 
+  i.nome AS ing_nome, 
+  ir.quantidade AS ir_quantidade, 
+  um.id AS um_id, 
+  um.nome AS um_nome 
+FROM 
+  refeicao m 
+  JOIN objetivo o ON m.objetivo_id = o.id 
+  LEFT JOIN ingrediente_refeicao ir ON m.id = ir.refeicao_id 
+  LEFT JOIN ingrediente i ON ir.ingrediente_id = i.id 
+  LEFT JOIN unidade_medida um ON ir.unidade_medida_id = um.id 
 
+-- BUSCA OMELETE E TODOS INGREDIENTES
+SELECT 
+  m.*, 
+  o.id AS obj_id, 
+  o.descricao AS obj_descricao, 
+  i.id AS ing_id, 
+  i.nome AS ing_nome, 
+  ir.quantidade AS ir_quantidade, 
+  um.id AS um_id, 
+  um.nome AS um_nome 
+FROM 
+  refeicao m 
+  JOIN objetivo o ON m.objetivo_id = o.id 
+  LEFT JOIN ingrediente_refeicao ir ON m.id = ir.refeicao_id 
+  LEFT JOIN ingrediente i ON ir.ingrediente_id = i.id 
+  LEFT JOIN unidade_medida um ON ir.unidade_medida_id = um.id 
+WHERE 
+  m.id = 1;
 
+  -- BUSCA USUARIOS COM OS OBJETIVOS
 SELECT 
 		u.nome, u.imc, o.descricao
 FROM 
@@ -26,3 +43,10 @@ INNER JOIN
 	objetivo o ON u.objetivo_id = o.id
 ORDER BY
 	u.imc DESC;
+	
+	-- BUSCA TODAS AS REFEICOES PARA USUARIO JOAO
+	SELECT r.id, r.nome, r.descricao, r.calorias, r.modo_preparo
+FROM refeicao r
+JOIN objetivo o ON r.objetivo_id = o.id
+JOIN usuario u ON u.objetivo_id = o.id
+WHERE u.id = 1;
