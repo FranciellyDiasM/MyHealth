@@ -2,6 +2,7 @@ package br.com.quatrodcum.myhealth.model.dao
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT_MEAL
 import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.COLUMN_ID
 import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.COLUMN_NAME
 import br.com.quatrodcum.myhealth.model.dao.DB.UNIT_OF_MEASUREMENT.TABLE_NAME
@@ -63,6 +64,11 @@ class UnitOfMeasurementDao(context: Context) {
             db.beginTransaction()
             db.execSQL(
                 "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(unitOfMeasurement.id)
+            )
+
+            db.execSQL(
+                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = ?",
                 arrayOf(unitOfMeasurement.id)
             )
 

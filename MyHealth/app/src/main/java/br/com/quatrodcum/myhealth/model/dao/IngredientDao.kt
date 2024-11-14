@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_ID
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_NAME
 import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.TABLE_NAME
+import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT_MEAL
 import br.com.quatrodcum.myhealth.model.domain.Ingredient
 
 class IngredientDao(context: Context) {
@@ -63,6 +64,11 @@ class IngredientDao(context: Context) {
             db.beginTransaction()
             db.execSQL(
                 "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(ingredient.id)
+            )
+
+            db.execSQL(
+                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_INGREDIENT_ID} = ?",
                 arrayOf(ingredient.id)
             )
 

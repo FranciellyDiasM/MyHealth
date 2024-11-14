@@ -200,8 +200,7 @@ class MealDao(context: Context) {
                 LEFT JOIN ${INGREDIENT.TABLE_NAME} i ON ir.${INGREDIENT_MEAL.COLUMN_INGREDIENT_ID} = i.${INGREDIENT.COLUMN_ID}
                 LEFT JOIN ${UNIT_OF_MEASUREMENT.TABLE_NAME} um ON ir.${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = um.${UNIT_OF_MEASUREMENT.COLUMN_ID}
                 WHERE m.$COLUMN_OBJECTIVE_ID = ?;
-            """
-                .trimIndent(), arrayOf(objectiveId.toString())
+            """.trimIndent(), arrayOf(objectiveId.toString())
         )
 
         cursor.use {
@@ -435,9 +434,22 @@ class MealDao(context: Context) {
 
     fun delete(id: Int) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-            arrayOf(id)
-        )
+
+        try {
+            db.beginTransaction()
+            db.execSQL(
+                "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(id)
+            )
+
+            db.execSQL(
+                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_MEAL_ID} = ?",
+                arrayOf(id)
+            )
+
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 }

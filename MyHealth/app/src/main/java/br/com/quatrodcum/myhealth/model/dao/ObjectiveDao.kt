@@ -2,9 +2,11 @@ package br.com.quatrodcum.myhealth.model.dao
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import br.com.quatrodcum.myhealth.model.dao.DB.MEAL
 import br.com.quatrodcum.myhealth.model.dao.DB.OBJECTIVE.COLUMN_DESCRIPTION
 import br.com.quatrodcum.myhealth.model.dao.DB.OBJECTIVE.COLUMN_ID
 import br.com.quatrodcum.myhealth.model.dao.DB.OBJECTIVE.TABLE_NAME
+import br.com.quatrodcum.myhealth.model.dao.DB.USER
 import br.com.quatrodcum.myhealth.model.domain.Objective
 
 
@@ -64,6 +66,16 @@ class ObjectiveDao(context: Context) {
             db.beginTransaction()
             db.execSQL(
                 "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
+                arrayOf(objective.id)
+            )
+
+            db.execSQL(
+                "DELETE FROM ${USER.TABLE_NAME} WHERE ${USER.COLUMN_OBJECTIVE_ID} = ?;",
+                arrayOf(objective.id)
+            )
+
+            db.execSQL(
+                "DELETE FROM ${MEAL.TABLE_NAME} WHERE ${MEAL.COLUMN_OBJECTIVE_ID} = ?;",
                 arrayOf(objective.id)
             )
 
