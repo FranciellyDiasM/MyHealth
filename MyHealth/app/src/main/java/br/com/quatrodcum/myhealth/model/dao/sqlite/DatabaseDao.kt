@@ -1,4 +1,4 @@
-package br.com.quatrodcum.myhealth.model.dao
+package br.com.quatrodcum.myhealth.model.dao.sqlite
 
 import android.content.Context
 import br.com.quatrodcum.myhealth.model.domain.Database

@@ -1,8 +1,8 @@
 package br.com.quatrodcum.myhealth.controller
 
 import android.content.Context
-import br.com.quatrodcum.myhealth.model.dao.ObjectiveDao
-import br.com.quatrodcum.myhealth.model.dao.UserDao
+import br.com.quatrodcum.myhealth.model.dao.sqlite.ObjectiveDao
+import br.com.quatrodcum.myhealth.model.dao.sqlite.UserDao
 import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.User
 import kotlin.math.pow

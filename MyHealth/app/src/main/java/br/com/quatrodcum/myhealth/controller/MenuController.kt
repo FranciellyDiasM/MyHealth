@@ -1,8 +1,8 @@
 package br.com.quatrodcum.myhealth.controller
 
 import android.content.Context
-import br.com.quatrodcum.myhealth.model.dao.MealDao
-import br.com.quatrodcum.myhealth.model.dao.UserDao
+import br.com.quatrodcum.myhealth.model.dao.sqlite.MealDao
+import br.com.quatrodcum.myhealth.model.dao.sqlite.UserDao
 import br.com.quatrodcum.myhealth.model.data.LocalPreferences
 import br.com.quatrodcum.myhealth.model.data.Session
 import br.com.quatrodcum.myhealth.model.domain.Meal

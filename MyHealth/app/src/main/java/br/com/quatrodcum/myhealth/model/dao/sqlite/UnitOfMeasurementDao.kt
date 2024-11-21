@@ -1,18 +1,18 @@
-package br.com.quatrodcum.myhealth.model.dao
+package br.com.quatrodcum.myhealth.model.dao.sqlite
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_ID
-import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.COLUMN_NAME
-import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT.TABLE_NAME
-import br.com.quatrodcum.myhealth.model.dao.DB.INGREDIENT_MEAL
-import br.com.quatrodcum.myhealth.model.domain.Ingredient
+import br.com.quatrodcum.myhealth.model.dao.sqlite.DB.INGREDIENT_MEAL
+import br.com.quatrodcum.myhealth.model.dao.sqlite.DB.UNIT_OF_MEASUREMENT.COLUMN_ID
+import br.com.quatrodcum.myhealth.model.dao.sqlite.DB.UNIT_OF_MEASUREMENT.COLUMN_NAME
+import br.com.quatrodcum.myhealth.model.dao.sqlite.DB.UNIT_OF_MEASUREMENT.TABLE_NAME
+import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
-class IngredientDao(context: Context) {
+class UnitOfMeasurementDao(context: Context) {
     private val dbHelper: DatabaseHelper = DatabaseHelper(context)
 
-    fun getAll(): List<Ingredient> {
-        val ingredients = mutableListOf<Ingredient>()
+    fun getAll(): List<UnitOfMeasurement> {
+        val unitOfMeasurements = mutableListOf<UnitOfMeasurement>()
         val db: SQLiteDatabase = dbHelper.readableDatabase
         val cursor = db.rawQuery(
             "SELECT * FROM $TABLE_NAME",
@@ -21,19 +21,19 @@ class IngredientDao(context: Context) {
 
         if (cursor.moveToFirst()) {
             do {
-                val ingredient = Ingredient(
+                val unitOfMeasurement = UnitOfMeasurement(
                     id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                     name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
                 )
-                ingredients.add(ingredient)
+                unitOfMeasurements.add(unitOfMeasurement)
             } while (cursor.moveToNext())
         }
 
         cursor.close()
-        return ingredients
+        return unitOfMeasurements
     }
 
-    fun insert(ingredient: Ingredient) {
+    fun insert(unitOfMeasurement: UnitOfMeasurement) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
             """
@@ -41,11 +41,11 @@ class IngredientDao(context: Context) {
             ($COLUMN_NAME)
             VALUES (?);
             """,
-            arrayOf(ingredient.name)
+            arrayOf(unitOfMeasurement.name)
         )
     }
 
-    fun update(ingredient: Ingredient) {
+    fun update(unitOfMeasurement: UnitOfMeasurement) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         db.execSQL(
             """
@@ -53,23 +53,23 @@ class IngredientDao(context: Context) {
                     SET $COLUMN_NAME = ?
                     WHERE $COLUMN_ID = ?;
                 """,
-            arrayOf(ingredient.name, ingredient.id)
+            arrayOf(unitOfMeasurement.name, unitOfMeasurement.id)
         )
     }
 
-    fun delete(ingredient: Ingredient) {
+    fun delete(unitOfMeasurement: UnitOfMeasurement) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
 
         try {
             db.beginTransaction()
             db.execSQL(
                 "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-                arrayOf(ingredient.id)
+                arrayOf(unitOfMeasurement.id)
             )
 
             db.execSQL(
-                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_INGREDIENT_ID} = ?",
-                arrayOf(ingredient.id)
+                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = ?",
+                arrayOf(unitOfMeasurement.id)
             )
 
             db.setTransactionSuccessful()

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.quatrodcum.myhealth.R
 import br.com.quatrodcum.myhealth.controller.SplashScreenController
 import br.com.quatrodcum.myhealth.databinding.ActivitySplashScreenBinding
-import br.com.quatrodcum.myhealth.model.dao.DB
+import br.com.quatrodcum.myhealth.model.dao.sqlite.DB
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
 import br.com.quatrodcum.myhealth.util.renderHtml
