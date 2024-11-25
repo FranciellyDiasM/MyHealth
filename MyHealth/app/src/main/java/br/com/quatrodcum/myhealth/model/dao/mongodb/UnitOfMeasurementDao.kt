@@ -12,69 +12,18 @@ class UnitOfMeasurementDao(context: Context) {
     private val dbHelper: DatabaseHelper = DatabaseHelper(context)
 
     fun getAll(): List<UnitOfMeasurement> {
-        val unitOfMeasurements = mutableListOf<UnitOfMeasurement>()
-        val db: SQLiteDatabase = dbHelper.readableDatabase
-        val cursor = db.rawQuery(
-            "SELECT * FROM $TABLE_NAME",
-            null
-        )
-
-        if (cursor.moveToFirst()) {
-            do {
-                val unitOfMeasurement = UnitOfMeasurement(
-                    id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
-                    name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME))
-                )
-                unitOfMeasurements.add(unitOfMeasurement)
-            } while (cursor.moveToNext())
-        }
-
-        cursor.close()
-        return unitOfMeasurements
+        TODO()
     }
 
     fun insert(unitOfMeasurement: UnitOfMeasurement) {
-        val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            """
-            INSERT INTO $TABLE_NAME 
-            ($COLUMN_NAME)
-            VALUES (?);
-            """,
-            arrayOf(unitOfMeasurement.name)
-        )
+        TODO()
     }
 
     fun update(unitOfMeasurement: UnitOfMeasurement) {
-        val db: SQLiteDatabase = dbHelper.writableDatabase
-        db.execSQL(
-            """
-                    UPDATE $TABLE_NAME 
-                    SET $COLUMN_NAME = ?
-                    WHERE $COLUMN_ID = ?;
-                """,
-            arrayOf(unitOfMeasurement.name, unitOfMeasurement.id)
-        )
+        TODO()
     }
 
     fun delete(unitOfMeasurement: UnitOfMeasurement) {
-        val db: SQLiteDatabase = dbHelper.writableDatabase
-
-        try {
-            db.beginTransaction()
-            db.execSQL(
-                "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID = ?;",
-                arrayOf(unitOfMeasurement.id)
-            )
-
-            db.execSQL(
-                "DELETE FROM ${INGREDIENT_MEAL.TABLE_NAME} WHERE ${INGREDIENT_MEAL.COLUMN_UNIT_OF_MEASURE_ID} = ?",
-                arrayOf(unitOfMeasurement.id)
-            )
-
-            db.setTransactionSuccessful()
-        } finally {
-            db.endTransaction()
-        }
+        TODO()
     }
 }
