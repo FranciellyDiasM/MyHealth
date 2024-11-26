@@ -15,6 +15,18 @@ fun Context.toast(message: String) {
 
 fun log(message: String) {
     Log.i("MyHealthLog", message)
+
+    if (message.length > 4000) {
+        var start = 0
+        var end: Int
+        while (start < message.length) {
+            end = (start + 4000).coerceAtMost(message.length)
+            Log.i("MyHealthLog", message.substring(start, end))
+            start = end
+        }
+    } else {
+        Log.i("MyHealthLog", message)
+    }
 }
 
 fun Context.showSimpleDialog(

@@ -4,18 +4,16 @@ import android.content.Context
 import br.com.quatrodcum.myhealth.model.domain.Database
 
 class DatabaseDao(private val context: Context) {
-    private val userDao = UserDao(context)
-    private val ingredientDao = IngredientDao(context)
-    private val mealDao = MealDao(context)
-    private val objectiveDao = ObjectiveDao(context)
-    private val unitOfMeasurementDao = UnitOfMeasurementDao(context)
+    private val userDao = UserDao()
+    private val ingredientDao = IngredientDao()
+    private val mealDao = MealDao()
+    private val objectiveDao = ObjectiveDao()
+    private val unitOfMeasurementDao = UnitOfMeasurementDao()
 
     fun getDatabase(): Database {
         return try {
             loadDatabase()
         } catch (e: Exception) {
-            DatabaseHelper(context).deleteDatabase()
-
             loadDatabase()
         }
     }

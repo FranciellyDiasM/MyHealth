@@ -8,9 +8,11 @@ import br.com.quatrodcum.myhealth.databinding.ActivitySplashScreenBinding
 import br.com.quatrodcum.myhealth.model.dao.sqlite.DB
 import br.com.quatrodcum.myhealth.model.domain.User
 import br.com.quatrodcum.myhealth.util.ThreadUtil
+import br.com.quatrodcum.myhealth.util.log
 import br.com.quatrodcum.myhealth.util.renderHtml
 import br.com.quatrodcum.myhealth.view.login.LoginActivity
 import br.com.quatrodcum.myhealth.view.menu.MenuActivity
+import com.google.gson.Gson
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -34,6 +36,8 @@ class SplashScreenActivity : AppCompatActivity() {
                 splashScreenController.getDatabase()
             },
             postExecuteTask = { database ->
+                log(Gson().toJson(database))
+
                 val databaseDetail = """
                     |${DB.USER.TABLE_NAME}: ${database.users.size}
                     |${DB.OBJECTIVE.TABLE_NAME}: ${database.objectives.size}

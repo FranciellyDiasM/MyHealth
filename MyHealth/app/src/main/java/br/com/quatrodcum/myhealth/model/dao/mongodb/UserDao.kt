@@ -1,12 +1,9 @@
 package br.com.quatrodcum.myhealth.model.dao.mongodb
 
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import br.com.quatrodcum.myhealth.model.domain.Objective
 import br.com.quatrodcum.myhealth.model.domain.User
 
-class UserDao(context: Context) {
-    private val dbHelper: DatabaseHelper = DatabaseHelper(context)
+class UserDao() {
+    private val dbHelper: DatabaseHelper = DatabaseHelper()
 
     fun getUser(userId: Int): User? {
         TODO()
