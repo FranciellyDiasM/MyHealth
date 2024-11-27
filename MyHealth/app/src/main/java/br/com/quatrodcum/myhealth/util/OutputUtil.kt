@@ -14,8 +14,6 @@ fun Context.toast(message: String) {
 }
 
 fun log(message: String) {
-    Log.i("MyHealthLog", message)
-
     if (message.length > 4000) {
         var start = 0
         var end: Int
