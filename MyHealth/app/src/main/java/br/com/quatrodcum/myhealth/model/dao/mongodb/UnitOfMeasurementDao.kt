@@ -1,23 +1,37 @@
 package br.com.quatrodcum.myhealth.model.dao.mongodb
 
-import android.content.Context
+import br.com.quatrodcum.myhealth.db
 import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
-class UnitOfMeasurementDao(context: Context) {
+class UnitOfMeasurementDao() {
 
     fun getAll(): List<UnitOfMeasurement> {
-        TODO()
+        return db.unitOfMeasurements.find()
     }
 
     fun insert(unitOfMeasurement: UnitOfMeasurement) {
-        TODO()
+        val name = unitOfMeasurement.name
+
+        db.unitOfMeasurements.insertOne("""
+            { "name" : "$name" }
+        """)
     }
 
     fun update(unitOfMeasurement: UnitOfMeasurement) {
-        TODO()
+        val id = unitOfMeasurement.id
+        val name = unitOfMeasurement.name
+
+        db.unitOfMeasurements.updateMany(
+            """{ "id" : $id }""",
+            """{ "set" : { "name" : "$name" } }"""
+        )
     }
 
     fun delete(unitOfMeasurement: UnitOfMeasurement) {
-        TODO()
+        val id = unitOfMeasurement.id
+
+        db.unitOfMeasurements.deleteMany(
+            """{ "id" : $id }"""
+        )
     }
 }

@@ -10,6 +10,7 @@ import br.com.quatrodcum.myhealth.model.dao.mongodb.entity.ObjectiveEntity.Compa
 import br.com.quatrodcum.myhealth.model.dao.mongodb.entity.UnitOfMeasurementEntity.Companion.toDomain
 import br.com.quatrodcum.myhealth.model.domain.IngredientMeal
 import br.com.quatrodcum.myhealth.model.domain.Meal
+import br.com.quatrodcum.myhealth.util.transformFlattenedJson
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 
@@ -28,7 +29,7 @@ class MealCore(private val database: Database) {
     }
 
     fun find(where: String = "{}"): List<Meal> {
-        val whereJson = gson.fromJson(where, MealEntity::class.java)
+        val whereJson = gson.fromJson(where.transformFlattenedJson(), MealEntity::class.java)
 
         return database.tables.meals.filter { matchesCondition(it, whereJson) }.map { entity ->
             entity.convert()
