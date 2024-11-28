@@ -2,11 +2,11 @@ package br.com.quatrodcum.myhealth.controller
 
 import android.content.Context
 import br.com.quatrodcum.myhealth.model.dao.sqlite.DatabaseHelper
-import br.com.quatrodcum.myhealth.model.dao.sqlite.IngredientDao
-import br.com.quatrodcum.myhealth.model.dao.sqlite.MealDao
-import br.com.quatrodcum.myhealth.model.dao.sqlite.ObjectiveDao
-import br.com.quatrodcum.myhealth.model.dao.sqlite.UnitOfMeasurementDao
-import br.com.quatrodcum.myhealth.model.dao.sqlite.UserDao
+import br.com.quatrodcum.myhealth.model.dao.mongodb.IngredientDao
+import br.com.quatrodcum.myhealth.model.dao.mongodb.MealDao
+import br.com.quatrodcum.myhealth.model.dao.mongodb.ObjectiveDao
+import br.com.quatrodcum.myhealth.model.dao.mongodb.UnitOfMeasurementDao
+import br.com.quatrodcum.myhealth.model.dao.mongodb.UserDao
 import br.com.quatrodcum.myhealth.model.data.LocalPreferences
 import br.com.quatrodcum.myhealth.model.domain.Ingredient
 import br.com.quatrodcum.myhealth.model.domain.Objective
@@ -14,13 +14,13 @@ import br.com.quatrodcum.myhealth.model.domain.UnitOfMeasurement
 
 class ConfigController(context: Context) {
 
-    private val unitOfMeasurementDao: UnitOfMeasurementDao = UnitOfMeasurementDao(context)
-    private val objectiveDao: ObjectiveDao = ObjectiveDao(context)
-    private val ingredientDao: IngredientDao = IngredientDao(context)
+    private val unitOfMeasurementDao: UnitOfMeasurementDao = UnitOfMeasurementDao()
+    private val objectiveDao: ObjectiveDao = ObjectiveDao()
+    private val ingredientDao: IngredientDao = IngredientDao()
     private val databaseHelper = DatabaseHelper(context)
     private val localPreferences = LocalPreferences(context)
-    private val userDao: UserDao = UserDao(context)
-    private val mealDao: MealDao = MealDao(context)
+    private val userDao: UserDao = UserDao()
+    private val mealDao: MealDao = MealDao()
 
     fun getUnitOfMeasurements(): List<UnitOfMeasurement> {
         return unitOfMeasurementDao.getAll()

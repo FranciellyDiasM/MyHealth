@@ -32,14 +32,14 @@ class MealDao() {
             .append("\"name\" : \"$name\", ")
             .append("\"calories\" : $calories, ")
             .append("\"description\" : \"$description\", ")
-            .append("\"objective\" : $objective, ")
+            .append("\"objective\" : ${objective.id}, ")
             .append("\"preparationMode\" : \"$preparationMode\", ")
             .append("\"ingredients\" : [ ")
 
         meal.ingredients.forEachIndexed { index, ing ->
             builder.append("{")
-                .append("\"ingredient\" : ${ing.ingredient}, ")
-                .append("\"unitOfMeasurement\" : ${ing.unitOfMeasurement}, ")
+                .append("\"ingredient\" : ${ing.ingredient.id}, ")
+                .append("\"unitOfMeasurement\" : ${ing.unitOfMeasurement.id}, ")
                 .append("\"quantity\" : ${ing.quantity}")
                 .append("}")
 
@@ -69,14 +69,14 @@ class MealDao() {
             .append("\"name\" : \"$name\", ")
             .append("\"calories\" : $calories, ")
             .append("\"description\" : \"$description\", ")
-            .append("\"objective\" : $objective, ")
+            .append("\"objective\" : ${objective.id}, ")
             .append("\"preparationMode\" : \"$preparationMode\", ")
             .append("\"ingredients\" : [ ")
 
         meal.ingredients.forEachIndexed { index, ing ->
             builder.append("{")
-                .append("\"ingredient\" : ${ing.ingredient}, ")
-                .append("\"unitOfMeasurement\" : ${ing.unitOfMeasurement}, ")
+                .append("\"ingredient\" : ${ing.ingredient.id}, ")
+                .append("\"unitOfMeasurement\" : ${ing.unitOfMeasurement.id}, ")
                 .append("\"quantity\" : ${ing.quantity}")
                 .append("}")
 
