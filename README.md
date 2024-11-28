@@ -42,3 +42,39 @@ JUAN TAVARES MARCOLINO LIRIO
 KAYKE RIOS DE PAULA  
 PEDRO HENRIQUE DE FREITAS TESSNIARI  
 RODRIGO SANTOS ROCHA  
+
+## Arquivos importantes:
+[Pasta com os DAOs do mongo](https://github.com/FranciellyDiasM/MyHealth/tree/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/model/dao/mongodb)  
+[Pasta com os DAOs legado(Sqlite)](https://github.com/FranciellyDiasM/MyHealth/tree/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/model/dao/sqlite)
+
+#### Exemplos de Data Access Object
+[mongo/ObjectiveDao.kt](https://github.com/FranciellyDiasM/MyHealth/blob/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/model/dao/mongodb/ObjectiveDao.kt), interessante pois tem a exclusão em cascata  
+[sqlite/ObjectiveDao.kt](https://github.com/FranciellyDiasM/MyHealth/blob/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/model/dao/sqlite/ObjectiveDao.kt)
+
+Fluxo interessante na [SplashScreen](https://github.com/FranciellyDiasM/MyHealth/blob/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/controller/SplashScreenController.kt): caso o banco mongoDb esteja vazio ele carrega os dados do banco legado(possível observar no metodo `migrateFromSqlite` e a migração sendo feita no `loadFrom` do [mongodb/DatabaseDao.kt](https://github.com/FranciellyDiasM/MyHealth/blob/main/MyHealth/app/src/main/java/br/com/quatrodcum/myhealth/model/dao/mongodb/DatabaseDao.kt)
+
+
+## Checkpoint
+#### Relatórios:
+<6.a.1.i> e <6.a.1.ii>
+* Aplicativo possui splashscreen
+
+#### Inserir Registors
+<6.a.1.i> e <6.a.1.ii>
+* Aplicação permite adicionar `objetivo`, `ingrediente`, `unidade de medida`, `refeição` e `usuario`
+* Possui relacionamento 1..n: um usuario tem um objetivo e um objetivo pode ter varios usuarios
+* Possui relacionamento n..n: uma refeicao possui uma lista de objetos que é o componente da refeicao, com ingrediente e unidade de medida(um ingrediente pode estar em várias refeições e uma refeição pode ter vários ingredientes)
+
+#### Remover Registros
+<6.c.[1-4 e 6]> e <6.c.5.i>
+* A Aplicação permite remover qualquer registro
+* Caso o registro não esteja sendo usado, exibe uma mensagem simples de confirmação
+* Caso o registro esteja sendo usado, exibe uma mensagem alertando que se confirmar, vai apagar o registro e todos os outros que o usa
+
+#### Atualizar Registros
+<6.d.[1-6]> e <6.d.[7-8]>
+* Todos os campos de todos os registros podem ser editados(exceto id)
+
+#### Vídeo
+O vídeo segue com a mesmas funcionalidades do app anterior
+
