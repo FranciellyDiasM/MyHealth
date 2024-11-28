@@ -44,7 +44,6 @@ class SplashScreenActivity : AppCompatActivity() {
                     |${DB.MEAL.TABLE_NAME}: ${database.meals.size}
                     |${DB.INGREDIENT.TABLE_NAME}: ${database.ingredients.size}
                     |${DB.UNIT_OF_MEASUREMENT.TABLE_NAME}: ${database.unitOfMeasurements.size}
-                    |${DB.INGREDIENT_MEAL.TABLE_NAME}: ${database.ingredientMeals.size}
                 """.trimMargin()
 
                 binding.txtDatabaseDetails.text = databaseDetail
